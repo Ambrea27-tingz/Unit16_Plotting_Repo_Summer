@@ -14,8 +14,8 @@ import plotly.express as px
 
 
 class GitHubAPIClient:
-    """Client for interacting with the GitHub API to fetch repository data."""
     def __init__(self, language="Java", per_page=30):
+        """Initializes the GitHub API client with the specified language and number of repositories per page."""
         self.api_url = f"https://api.github.com/search/repositories?q=language:{language}&sort=stars"
         self.headers = {"Accept": "application/vnd.github.v3+json"}
         self.params = {"per_page": per_page}
@@ -27,11 +27,12 @@ class GitHubAPIClient:
 
 
 class RepoDataParser:
-    """Parser for extracting repository data from the GitHub API response."""
     def __init__(self, response_dict):
+        """Initializes the parser with the response dictionary from the GitHub API."""
         self.repo_dicts = response_dict["items"]
 
     def extract_repo_data(self):
+        """Extracts repository links, star counts, and labels from the repository data."""
         repo_links, stars, labels = [], [], []
 
         for repo in self.repo_dicts:
@@ -49,8 +50,8 @@ class RepoDataParser:
 
 
 class RepoPlotter:
-    """Plotter for visualizing repository data using Plotly."""
     def __init__(self, repo_links, stars, labels, language="Java"):
+        """Initializes the plotter with repository links, star counts, labels, and language."""
         self.repo_links = repo_links
         self.stars = stars
         self.labels = labels
