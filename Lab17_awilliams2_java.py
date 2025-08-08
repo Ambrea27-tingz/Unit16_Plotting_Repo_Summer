@@ -1,5 +1,5 @@
 """ 
-Lab17_awilliams2_java.py
+Unit 16: Plotting Repositories
 
 Ambrea Williams
 
@@ -14,6 +14,7 @@ import plotly.express as px
 
 
 class GitHubAPIClient:
+    """Client for interacting with the GitHub API to fetch repository data."""
     def __init__(self, language="Java", per_page=30):
         self.api_url = f"https://api.github.com/search/repositories?q=language:{language}&sort=stars"
         self.headers = {"Accept": "application/vnd.github.v3+json"}
@@ -26,6 +27,7 @@ class GitHubAPIClient:
 
 
 class RepoDataParser:
+    """Parser for extracting repository data from the GitHub API response."""
     def __init__(self, response_dict):
         self.repo_dicts = response_dict["items"]
 
@@ -47,6 +49,7 @@ class RepoDataParser:
 
 
 class RepoPlotter:
+    """Plotter for visualizing repository data using Plotly."""
     def __init__(self, repo_links, stars, labels, language="Java"):
         self.repo_links = repo_links
         self.stars = stars
@@ -54,6 +57,7 @@ class RepoPlotter:
         self.language = language
 
     def plot(self):
+        """Generates a bar plot of the repositories."""
         fig = px.bar(
             x=self.repo_links,
             y=self.stars,
@@ -66,6 +70,7 @@ class RepoPlotter:
 
 
 def main():
+    """Main function to execute the program."""
     client = GitHubAPIClient(language="Java")
     response_data = client.fetch_top_repositories()
 
